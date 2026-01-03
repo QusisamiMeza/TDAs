@@ -85,8 +85,16 @@ bool rehashear(hash_t *hash)
 		hash_t aux;
 		aux.tabla = nueva_tabla;
 		aux.capacidad = nueva_capacidad;
-		if (hash_iterar(hash, agregar_par_en_tabla, &aux) !=
-		    hash->cantidad) {
+
+		size_t cantidad = 0;
+		bool seguir = true;
+		for (size_t i = 0; i < hash->capacidad && seguir; i++) {
+			cantidad += iterador_bucket_rehash(hash->tabla[i],
+							   agregar_par_en_tabla,
+							   &aux, &seguir);
+		}
+
+		if (cantidad != hash->cantidad) {
 			destruir_tabla(nueva_tabla, nueva_capacidad);
 			return false;
 		}

@@ -31,6 +31,11 @@ int comparador_par_clave(const void *a, const void *b);
 size_t iterador_bucket(lista_t *lista_tabla, bool (*f)(char *, void *, void *),
 		       void *ctx, bool *seguir);
 
+//Itera en un determinado bucket hasta que `f` de false. Devuelve la cantidad de pares iterados
+size_t iterador_bucket_rehash(lista_t *lista_tabla,
+			      bool (*f)(char *, void *, void *), void *ctx,
+			      bool *seguir);
+
 //Libera la memoria del valor en `par_a` con el destructor pasado por el parametro `ctx`
 bool destruir_par_valor(void *par_a, void *ctx);
 

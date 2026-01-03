@@ -69,6 +69,23 @@ size_t iterador_bucket(lista_t *lista_tabla, bool (*f)(char *, void *, void *),
 
 	while (lista_iterador_hay_mas_elementos(iterador) && (*seguir)) {
 		par_t *actual = lista_iterador_obtener_actual(iterador);
+		*seguir = f(actual->clave, actual->valor, ctx);
+		lista_iterador_siguiente(iterador);
+		cantidad++;
+	}
+	lista_iterador_destruir(iterador);
+	return cantidad;
+}
+
+size_t iterador_bucket_rehash(lista_t *lista_tabla,
+			      bool (*f)(char *, void *, void *), void *ctx,
+			      bool *seguir)
+{
+	lista_iterador_t *iterador = lista_iterador_crear(lista_tabla);
+	size_t cantidad = 0;
+
+	while (lista_iterador_hay_mas_elementos(iterador) && (*seguir)) {
+		par_t *actual = lista_iterador_obtener_actual(iterador);
 		*seguir = f(actual->clave, actual, ctx);
 		lista_iterador_siguiente(iterador);
 		cantidad++;
