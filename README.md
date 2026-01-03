@@ -43,7 +43,7 @@ Conceptos trabajados:
 - Estructuras auxiliares
 - Análisis de eficiencia
 
-Ver detalles en: `hash/README.md`
+Ver detalles en: `HASH/README.md`
 
 ---
 
